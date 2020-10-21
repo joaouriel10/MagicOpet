@@ -1,0 +1,13 @@
+{
+  "type": "sqlite",
+  "database": "./banco.sqlite",
+  "migrations": [
+    "./src/database/migrations/*.ts"
+  ],
+  "cli": {
+    "migrationsDir": "./src/database/migrations"
+  },
+  "entities": [
+    "./src/models/*.ts"
+  ]
+}
