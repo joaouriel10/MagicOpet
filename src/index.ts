@@ -6,6 +6,8 @@ import ListMagics from './services/ListMagics';
 
 import UpdateMagic from './services/UpdateMagic';
 
+import DeleteMagic from './services/DeleteMagic';
+
 const routes = Router();
 
 routes.post('/create-card', async (request, response) => {
@@ -38,11 +40,11 @@ routes.put('/update-card', async (request, response) => {
   const { id, name, qtd_mana, type } = request.body;
   
   if (!id) {
-    return response.status(400).json({status: 'false',  message: "Favor enviar id para ajuste."})
+    return response.status(400).json({status: 'false',  message: "Favor enviar id para ajuste."});
   }
   if(type) {
     if (type !== 'Magia' && type !== 'Criatura') {
-      return response.status(400).json({status: 'false',  message: "Tipo de Carta invalido."})
+      return response.status(400).json({status: 'false',  message: "Tipo de Carta invalido."});
     }
   }
   
@@ -60,6 +62,29 @@ routes.put('/update-card', async (request, response) => {
 
   return response.status(200).json({status: 'success', updatedCard});
 });
+
+routes.delete('/delete-card', async (request, response) => {
+  const { id } = request.body;
+
+  if (!id) {
+    return response.status(400).json({status: 'false',  message: "Favor enviar id para deletar."});
+  }
+
+  const deleteMagic = new DeleteMagic();
+
+  const result = await deleteMagic.execute({id});
+
+  if (result === 1) {
+    return response.status(400).json({status: 'false',  message: "Usuario não encontrado."});
+  }
+
+  if (result === 2) {
+    return response.status(400).json({status: 'false',  message: "Erro ao deletar usuario."});
+  }
+
+
+  return response.status(200).json({status: 'success', message: "Usuario deletado"});
+})
 
 
 export default routes;
