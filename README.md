@@ -1,5 +1,7 @@
 # MagicOpet
 
+Para rodar precisa ter instalado o NODE e NPM/Yarn no computador
+
 Primeiramente Rodas para baixar as dependecias 
 
 `yarn`
